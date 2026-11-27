@@ -1,7 +1,7 @@
 package id.pasarkita.catalog;
 
+import id.pasarkita.Pagination;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,14 +23,14 @@ class CatalogController {
     @GetMapping
     Page<Product> list(@RequestParam(defaultValue = "0") int page,
                        @RequestParam(defaultValue = "20") int size) {
-        return products.findAll(PageRequest.of(page, size));
+        return products.findAll(Pagination.of(page, size));
     }
 
     @GetMapping("/search")
     Page<Product> search(@RequestParam String q,
                          @RequestParam(defaultValue = "0") int page,
                          @RequestParam(defaultValue = "20") int size) {
-        return products.search(q, PageRequest.of(page, size));
+        return products.search(q, Pagination.of(page, size));
     }
 
     @GetMapping("/{id}")
